@@ -1,0 +1,17 @@
+spring:
+  config:
+    activate:
+      on-profile: static-discovery
+  cloud:
+    discovery:
+      enabled: false
+
+eureka:
+  client:
+    enabled: false
+
+discovery:
+  static:
+    services:
+      notification-service: ${NOTIFICATION_SERVICE_URL:http://localhost:8083}
+

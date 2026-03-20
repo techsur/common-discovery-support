@@ -1,0 +1,16 @@
+spring:
+  config:
+    activate:
+      on-profile: k8s
+  cloud:
+    discovery:
+      enabled: false
+
+eureka:
+  client:
+    enabled: false
+
+discovery:
+  k8s:
+    scheme: http
+    service-suffix: ${KUBERNETES_SERVICE_SUFFIX:}

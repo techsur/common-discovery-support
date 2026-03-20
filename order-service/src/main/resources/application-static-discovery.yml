@@ -1,0 +1,18 @@
+spring:
+  config:
+    activate:
+      on-profile: static-discovery
+  cloud:
+    discovery:
+      enabled: false
+
+eureka:
+  client:
+    enabled: false
+
+discovery:
+  static:
+    services:
+      inventory-service: ${INVENTORY_SERVICE_URL:http://localhost:8082}
+      payment-service: ${PAYMENT_SERVICE_URL:http://localhost:8081}
+

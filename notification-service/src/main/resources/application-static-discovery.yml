@@ -1,0 +1,12 @@
+spring:
+  config:
+    activate:
+      on-profile: static-discovery
+  cloud:
+    discovery:
+      enabled: false
+
+eureka:
+  client:
+    enabled: false
+

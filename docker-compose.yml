@@ -1,0 +1,58 @@
+services:
+  order-service:
+    build:
+      context: .
+      dockerfile: order-service/Dockerfile
+    environment:
+      SPRING_PROFILES_ACTIVE: ${DISCOVERY_MODE:-static-discovery}
+      INVENTORY_SERVICE_URL: http://inventory-service:8082
+      PAYMENT_SERVICE_URL: http://payment-service:8081
+      EUREKA_SERVER_URL: http://discovery-server-eureka:8761/eureka/
+    ports:
+      - "8080:8080"
+    depends_on:
+      - inventory-service
+      - payment-service
+
+  payment-service:
+    build:
+      context: .
+      dockerfile: payment-service/Dockerfile
+    environment:
+      SPRING_PROFILES_ACTIVE: ${DISCOVERY_MODE:-static-discovery}
+      NOTIFICATION_SERVICE_URL: http://notification-service:8083
+      EUREKA_SERVER_URL: http://discovery-server-eureka:8761/eureka/
+    ports:
+      - "8081:8081"
+    depends_on:
+      - notification-service
+
+  inventory-service:
+    build:
+      context: .
+      dockerfile: inventory-service/Dockerfile
+    environment:
+      SPRING_PROFILES_ACTIVE: ${DISCOVERY_MODE:-static-discovery}
+      EUREKA_SERVER_URL: http://discovery-server-eureka:8761/eureka/
+    ports:
+      - "8082:8082"
+
+  notification-service:
+    build:
+      context: .
+      dockerfile: notification-service/Dockerfile
+    environment:
+      SPRING_PROFILES_ACTIVE: ${DISCOVERY_MODE:-static-discovery}
+      EUREKA_SERVER_URL: http://discovery-server-eureka:8761/eureka/
+    ports:
+      - "8083:8083"
+
+  discovery-server-eureka:
+    profiles:
+      - eureka
+    build:
+      context: .
+      dockerfile: discovery-server-eureka/Dockerfile
+    ports:
+      - "8761:8761"
+
