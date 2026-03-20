@@ -2,4 +2,10 @@ target/
 .idea/
 .vscode/
 .DS_Store
-
+.settings/
+.project
+.classpath
+.factorypath
+*.iml
+*.log
+.codex-logs/
